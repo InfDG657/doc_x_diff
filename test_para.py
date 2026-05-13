@@ -1,3 +1,4 @@
+import markdown
 from docx import Document
 from redlines import Redlines
 from html.parser import HTMLParser
@@ -33,8 +34,9 @@ class DiffHTMLParser(HTMLParser):
         run.font.underline = self._underline
 
 
-diff = Redlines(old, new)
+diff = Redlines(old, new, markdown_style=None)
 doc = Document()
 para = doc.add_paragraph()
-DiffHTMLParser(para).feed(diff.output_html)
+disp = markdown.markdown(diff.output_markdown)
+DiffHTMLParser(para).feed(markdown.markdown(diff.output_markdown))
 doc.save(output_path)
