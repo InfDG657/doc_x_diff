@@ -4,10 +4,6 @@ from docx.shared import RGBColor
 from redlines import Redlines
 from html.parser import HTMLParser
 
-old_path = 'test-EA-letter.docx'
-new_path = 'test-EA-letterRev.docx'
-output_path = 'diff.docx'
-
 class DiffHTMLParser(HTMLParser):
     def __init__(self, paragraph):
         super().__init__()
@@ -90,7 +86,3 @@ def run(old_path, new_path, output_path):
     old_graphs = extract_paragraphs(old_path)
     new_graphs = extract_paragraphs(new_path)
     write_diff_docx(diff_paragraphs(old_graphs, new_graphs), output_path)
-
-
-if __name__ == "__main__":
-    run(old_path, new_path, output_path)
