@@ -1,5 +1,6 @@
 import difflib
 from docx import Document
+from docx.shared import RGBColor
 from redlines import Redlines
 from html.parser import HTMLParser
 
@@ -30,6 +31,10 @@ class DiffHTMLParser(HTMLParser):
         run = self.paragraph.add_run(data)
         run.font.strike = self._strike
         run.font.underline = self._underline
+        if self._strike:
+            run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
+        elif self._underline:
+            run.font.color.rgb = RGBColor(0x00, 0x80, 0x00)
 
 def extract_paragraphs(word_file_path):
     doc = Document(word_file_path)
@@ -53,27 +58,31 @@ def write_diff_docx(diff_results, output_path):
                 doc.add_paragraph(text)
         elif tag == 'replace':
             for old, new in zip(old_block, new_block):
-                diff = Redlines(old, new)
+                diff = Redlines(old, new, markdown_style = None)
                 para = doc.add_paragraph()
                 DiffHTMLParser(para).feed(diff.output_markdown)
             for text in old_block[len(new_block):]:
                 para = doc.add_paragraph()
                 run = para.add_run(text)
                 run.font.strike = True
+                run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
             for text in new_block[len(old_block):]:
                 para = doc.add_paragraph()
                 run = para.add_run(text)
                 run.font.underline = True
+                run.font.color.rgb = RGBColor(0x00, 0x80, 0x00)
         elif tag == 'insert':
             for text in new_block:
                 para = doc.add_paragraph()
                 run = para.add_run(text)
                 run.font.underline = True
+                run.font.color.rgb = RGBColor(0x00, 0x80, 0x00)
         elif tag == 'delete':
             for text in old_block:
                 para = doc.add_paragraph()
                 run = para.add_run(text)
                 run.font.strike = True
+                run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
     doc.save(output_path)
 
 
