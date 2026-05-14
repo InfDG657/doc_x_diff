@@ -17,7 +17,7 @@ class DropZone_Frame(ttk.Frame):
         self.bindings()
 
     def widgets(self):
-        self.header_lbl = ttk.Label(self, text=self.label_text, font=("Helvetica", 12, "bold"))
+        self.header_lbl = ttk.Label(self, text=self.label_text, font=("Helvetica", 12, "bold"), anchor='center')
         self.drop_lbl = ttk.Label(self, textvariable=self.file_path_var, anchor="center", width=30)
         
 
@@ -53,7 +53,7 @@ class MainApp(tkinterdnd2.Tk):
         super().__init__()
         ttk.Style(theme="pulse")
         self.title("doc-x-diff")
-        self.geometry("720x400")
+        self.geometry("400x250")
         self.widgets()
         self.placement()
        
