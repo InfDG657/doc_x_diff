@@ -19,7 +19,6 @@ class DropZone_Frame(ttk.Frame):
     def widgets(self):
         self.header_lbl = ttk.Label(self, text=self.label_text, font=("Helvetica", 12, "bold"), anchor='center')
         self.drop_lbl = ttk.Label(self, textvariable=self.file_path_var, anchor="center", width=30)
-        
 
     def placement(self):
         self.header_lbl.grid(row=0, column=0, pady=(0, 5), sticky="ew")
@@ -56,7 +55,6 @@ class MainApp(tkinterdnd2.Tk):
         self.geometry("600x320")
         self.widgets()
         self.placement()
-       
 
     def widgets(self):
         self.old_zone = DropZone_Frame(self, "Old Version", bootstyle="primary", padding=10)
@@ -77,8 +75,6 @@ class MainApp(tkinterdnd2.Tk):
             run(self.old_zone.full_path, self.new_zone.full_path, save_path)
             messagebox.showinfo("Success", f"Diff file saved to:\n{save_path}")
         
-        
-
     def on_save(self):
         return filedialog.asksaveasfilename(
             defaultextension=".docx",
