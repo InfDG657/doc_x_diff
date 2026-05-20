@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 from pathlib import Path
 import tkinterdnd2
-from pipeline import run
+from pipeline_flat import run
 
 
 class DropZone_Frame(ttk.Frame):
@@ -53,7 +53,7 @@ class MainApp(tkinterdnd2.Tk):
         super().__init__()
         ttk.Style(theme="pulse")
         self.title("doc-x-diff")
-        self.geometry("400x250")
+        self.geometry("600x320")
         self.widgets()
         self.placement()
        
@@ -61,7 +61,7 @@ class MainApp(tkinterdnd2.Tk):
     def widgets(self):
         self.old_zone = DropZone_Frame(self, "Old Version", bootstyle="primary", padding=10)
         self.new_zone = DropZone_Frame(self, "New Version", bootstyle="primary", padding=10)
-        self.compare_btn = ttk.Button(self, text="Compare", bootstyle="primary", command=self.on_compare)
+        self.compare_btn = ttk.Button(self, text="Generate Diff", bootstyle="primary", command=self.on_compare)
     
     def placement(self):
         self.old_zone.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")

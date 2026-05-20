@@ -46,6 +46,7 @@ def write_diff_docx(diff_output, output_path):
         DiffHTMLParser(para).feed(para_html)
     doc.save(output_path)
 
+
 def run(old_path, new_path, output_path):
     diff =  Redlines(extract_text(old_path), 
                      extract_text(new_path), 
